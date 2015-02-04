@@ -5,17 +5,57 @@ import random
 import lxml.html
 import requests
 
-scraperwiki.sqlite.attach("ridzuan05/pricewatch_kawasan")
-# scraperwiki.sqlite.attach("pricewatch_barang")
-
 base_url = 'http://www.1pengguna.com/11pengguna/'
 
-# item_list = json.loads(open('pricewatch_barang.json').read())
-# area_list = json.loads(open('pricewatch_kawasan.json').read())
-# item_list = scraperwiki.sqlite.select("* from pricewatch_barang.swdata order by random() limit 50")
-# area_list = scraperwiki.sqlite.select("* from pricewatch_kawasan.swdata order by random() limit 50")
-item_list = scraperwiki.sqlite.select("* from ridzuan05/pricewatch_barang/data.json")
-area_list = scraperwiki.sqlite.select("* from ridzuan05/pricewatch_kawasan/data.json")
+def get_options(page, cssid):
+select_options = page.cssselect(cssid)
+options = []
+for count, option in enumerate(select_options):
+if count == 0:
+continue
+options.append([option.values()[0], option.text_content()])
+return options
+
+def get_kawasan(kod_negeri):
+params = "neg=" + kod_negeri
+url = base_url + 'index.php?pg=mysearch/ajax_kawasan&hd=0&' + params
+#print "\t", url
+resp = requests.get(url)
+page = lxml.html.fromstring(resp.content)
+kawasan_options = get_options(page, '#KodKawasan > option')
+kawasan = []
+for option in kawasan_options:
+kawasan.append([option[0], option[1]])
+return kawasan
+
+html = requests.get(base_url).content
+page = lxml.html.fromstring(html)
+select_options = get_options(page, '#negeri > option')
+for count, option in enumerate(select_options):
+kod_negeri = option[0]
+nama_negeri = option[1]
+kawasan = get_kawasan(kod_negeri)
+for kaw in kawasan:
+
+area_list = {
+'kod_negeri': kod_negeri,
+'nama_negeri': nama_negeri,
+'kod_kawasan': kaw[0],
+'nama_kawasan': kaw[1],
+}
+
+html = requests.get(base_url).content
+#html = open('result.html').read()
+page = lxml.html.fromstring(html)
+select_options = get_options(page, '#KodBrg > option')
+for count, option in enumerate(select_options):
+kod_barang = option[0]
+nama_barang = option[1]
+
+item_list = {
+'kod_barang': kod_barang,
+'nama_barang': nama_barang,
+}
 
 headers = {
     'Referer': base_url,
