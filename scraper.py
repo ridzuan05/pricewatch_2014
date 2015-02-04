@@ -8,54 +8,56 @@ import requests
 base_url = 'http://www.1pengguna.com/11pengguna/'
 
 def get_options(page, cssid):
-select_options = page.cssselect(cssid)
-options = []
-for count, option in enumerate(select_options):
-if count == 0:
-continue
-options.append([option.values()[0], option.text_content()])
-return options
+    select_options = page.cssselect(cssid)
+    options = []
+    for count, option in enumerate(select_options):
+        if count == 0:
+            continue
+        options.append([option.values()[0], option.text_content()])
+    return options
 
 def get_kawasan(kod_negeri):
-params = "neg=" + kod_negeri
-url = base_url + 'index.php?pg=mysearch/ajax_kawasan&hd=0&' + params
-#print "\t", url
-resp = requests.get(url)
-page = lxml.html.fromstring(resp.content)
-kawasan_options = get_options(page, '#KodKawasan > option')
-kawasan = []
-for option in kawasan_options:
-kawasan.append([option[0], option[1]])
-return kawasan
+    params = "neg=" + kod_negeri
+    url = base_url + 'index.php?pg=mysearch/ajax_kawasan&hd=0&' + params
+    #print "\t", url
+    resp = requests.get(url)
+    page = lxml.html.fromstring(resp.content)
+    kawasan_options = get_options(page, '#KodKawasan > option')
+    kawasan = []
+    for option in kawasan_options:
+        kawasan.append([option[0], option[1]])
+    return kawasan
 
 html = requests.get(base_url).content
 page = lxml.html.fromstring(html)
+
 select_options = get_options(page, '#negeri > option')
 for count, option in enumerate(select_options):
-kod_negeri = option[0]
-nama_negeri = option[1]
-kawasan = get_kawasan(kod_negeri)
-for kaw in kawasan:
-
-area_list = {
-'kod_negeri': kod_negeri,
-'nama_negeri': nama_negeri,
-'kod_kawasan': kaw[0],
-'nama_kawasan': kaw[1],
-}
+    kod_negeri = option[0]
+    nama_negeri = option[1]
+    kawasan = get_kawasan(kod_negeri)
+    
+    for kaw in kawasan:
+        area_list = {
+            'kod_negeri': kod_negeri,
+            'nama_negeri': nama_negeri,
+            'kod_kawasan': kaw[0],
+            'nama_kawasan': kaw[1],
+        }
 
 html = requests.get(base_url).content
 #html = open('result.html').read()
 page = lxml.html.fromstring(html)
+
 select_options = get_options(page, '#KodBrg > option')
 for count, option in enumerate(select_options):
-kod_barang = option[0]
-nama_barang = option[1]
+    kod_barang = option[0]
+    nama_barang = option[1]
 
-item_list = {
-'kod_barang': kod_barang,
-'nama_barang': nama_barang,
-}
+    item_list = {
+        'kod_barang': kod_barang,
+        'nama_barang': nama_barang,
+    }
 
 headers = {
     'Referer': base_url,
