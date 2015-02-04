@@ -10,7 +10,7 @@ import requests
 
 base_url = 'http://www.1pengguna.com/11pengguna/'
 
-# item_list = json.loads(open('pricewatch_barang.json').read())
+item_list = json.loads(open('ridzuan05/pricewatch_barang/data.json').read())
 # area_list = json.loads(open('pricewatch_kawasan.json').read())
 # item_list = scraperwiki.sqlite.select("* from pricewatch_barang.swdata order by random() limit 50")
 # area_list = scraperwiki.sqlite.select("* from pricewatch_kawasan.swdata order by random() limit 50")
