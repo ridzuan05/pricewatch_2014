@@ -14,8 +14,8 @@ base_url = 'http://www.1pengguna.com/11pengguna/'
 # area_list = json.loads(open('pricewatch_kawasan.json').read())
 # item_list = scraperwiki.sqlite.select("* from pricewatch_barang.swdata order by random() limit 50")
 # area_list = scraperwiki.sqlite.select("* from pricewatch_kawasan.swdata order by random() limit 50")
-item_list = data.sqlite.select("* from ridzuan05/pricewatch_barang.json")
-area_list = data.sqlite.select("* from ridzuan05/pricewatch_kawasan.json")
+item_list = data.sqlite.select("* from ridzuan05/pricewatch_barang/data.json")
+area_list = data.sqlite.select("* from ridzuan05/pricewatch_kawasan/data.json")
 
 headers = {
     'Referer': base_url,
