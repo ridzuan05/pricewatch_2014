@@ -1,20 +1,19 @@
 import scraperwiki
-
 import time
 import json
 import random
 import lxml.html
 import requests
 
-scraperwiki.sqlite.attach("pricewatch_kawasan")
-scraperwiki.sqlite.attach("pricewatch_barang")
+# scraperwiki.sqlite.attach("pricewatch_kawasan")
+# scraperwiki.sqlite.attach("pricewatch_barang")
 
 base_url = 'http://www.1pengguna.com/11pengguna/'
 
-#item_list = json.loads(open('pricewatch_barang.json').read())
-#area_list = json.loads(open('pricewatch_kawasan.json').read())
-item_list = scraperwiki.sqlite.select("* from pricewatch_barang.swdata order by random() limit 50")
-area_list = scraperwiki.sqlite.select("* from pricewatch_kawasan.swdata order by random() limit 50")
+item_list = json.loads(open('pricewatch_barang.json').read())
+area_list = json.loads(open('pricewatch_kawasan.json').read())
+# item_list = scraperwiki.sqlite.select("* from pricewatch_barang.swdata order by random() limit 50")
+# area_list = scraperwiki.sqlite.select("* from pricewatch_kawasan.swdata order by random() limit 50")
 
 headers = {
     'Referer': base_url,
