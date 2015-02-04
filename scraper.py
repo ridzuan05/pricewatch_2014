@@ -63,9 +63,9 @@ headers = {
     'Referer': base_url,
 }
 
-random_seconds = [1, 5, 10, 12, 11, 15]
-
-for item in item_list[4:]:
+# random_seconds = [1, 5, 10, 12, 11, 15]
+# for item in item_list[4:]:
+for item in item_list:
     for area in area_list:
         data = {
             'KodBrg': item['kod_barang'],
@@ -111,6 +111,6 @@ for item in item_list[4:]:
 
             scraperwiki.sqlite.save(unique_keys=['kod_barang', 'kod_negeri', 'kod_kawasan', 'premis', 'tarikh'], data=product)
             print product
-            second = random.choice(random_seconds)
-            print 'Sleep %ds' % second
-            #time.sleep(second)
+            # second = random.choice(random_seconds)
+            # print 'Sleep %ds' % second
+            # time.sleep(second)
