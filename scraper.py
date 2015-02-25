@@ -75,7 +75,7 @@ for item in item_list:
                 'KodKawasan': area['kod_kawasan'],
             }
         except ValueError:
-            break
+            pass
         
         url = base_url + 'index.php?pg=mysearch/result_search#content'
 
