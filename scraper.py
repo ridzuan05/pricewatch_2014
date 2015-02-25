@@ -67,11 +67,14 @@ headers = {
 # for item in item_list[4:]:
 for item in item_list:
     for area in area_list:
+        try:
         data = {
             'KodBrg': item['kod_barang'],
             'negeri': area['kod_negeri'],
             'KodKawasan': area['kod_kawasan'],
         }
+        except:
+            break
         url = base_url + 'index.php?pg=mysearch/result_search#content'
 
         try:
