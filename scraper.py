@@ -54,10 +54,11 @@ for count, option in enumerate(select_options):
     kod_barang = option[0]
     nama_barang = option[1]
 
-    item_list = {
-        'kod_barang': kod_barang,
-        'nama_barang': nama_barang,
-    }
+    if kod_barang.isdigit() == True:
+        item_list = {
+            'kod_barang': kod_barang,
+            'nama_barang': nama_barang,
+        }
 
 headers = {
     'Referer': base_url,
@@ -67,15 +68,11 @@ headers = {
 # for item in item_list[4:]:
 for item in item_list:
     for area in area_list:
-        
-        try:
-            data = {
-                'KodBrg': item['kod_barang'],
-                'negeri': area['kod_negeri'],
-                'KodKawasan': area['kod_kawasan'],
-            }
-        except ValueError:
-            pass
+        data = {
+            'KodBrg': item['kod_barang'],
+            'negeri': area['kod_negeri'],
+            'KodKawasan': area['kod_kawasan'],
+        }
         
         url = base_url + 'index.php?pg=mysearch/result_search#content'
 
