@@ -69,11 +69,11 @@ for item in item_list:
     for area in area_list:
         
         try:
-        data = {
-            'KodBrg': item['kod_barang'],
-            'negeri': area['kod_negeri'],
-            'KodKawasan': area['kod_kawasan'],
-        }
+            data = {
+                'KodBrg': item['kod_barang'],
+                'negeri': area['kod_negeri'],
+                'KodKawasan': area['kod_kawasan'],
+            }
         except ValueError:
             break
         
